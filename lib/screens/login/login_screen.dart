@@ -21,23 +21,15 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     _loginBloc.outState.listen((state) {
-      switch (state) {
-        case LoginState.SUCCESS:
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
-          break;
-        case LoginState.FAIL:
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text(
-              "Erro ao realizar login do usuário, verifique os campos e tente novamente.",
-            ),
-            duration: Duration(seconds: 4),
-          ));
-          break;
-          break;
-        case LoginState.LOADING:
-        case LoginState.IDLE:
-        case LoginState.FAIL:
-          break;
+      if (state == LoginState.SUCCESS) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+      } else if (state == LoginState.FAIL) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(
+            "Login e/ou Senha inválidos.",
+          ),
+          duration: Duration(seconds: 4),
+        ));
       }
     });
   }

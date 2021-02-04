@@ -17,46 +17,37 @@ class LoginBloc extends BlocBase with LoginValidators {
   final _passwordController = BehaviorSubject<String>();
   final _stateController = BehaviorSubject<LoginState>();
 
-  String token;
-  Map<String, dynamic> decodedToken;
-
+  Stream<bool> get outSubmitValid => Rx.combineLatest2(outDocument, outPassword, (a, b) => true);
   Stream<String> get outDocument => _documentController.stream.transform(validateDocument);
   Stream<String> get outPassword => _passwordController.stream.transform(validatePassword);
-
-  Stream<LoginState> get outState => _stateController.stream;
-
-  Stream<bool> get outSubmitValid => Rx.combineLatest2(outDocument, outPassword, (a, b) => true);
-
   Function(String) get changeDocument => _documentController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
+  Stream<LoginState> get outState => _stateController.stream;
 
-  StreamSubscription _streamSubscription;
+  String token;
+  Map<String, dynamic> decodedToken;
 
   void submit() async {
     final document = _documentController.value;
     final password = _passwordController.value;
 
-    print('Document $document');
-    print('Password $password');
-
     _stateController.add(LoginState.LOADING);
 
-    Map<String, String> data = {
-      'grant_type': 'password',
-      'username': document,
-      'password': password,
-      'scope': 'openid profile vcn vcn_portador',
-    };
-
     try {
-      Response response = await Dio().post(
-        'https://dev-km.eprepay.com.br/oauth2/token',
-        data: data,
-        options: Options(
-          contentType: 'application/x-www-form-urlencoded',
-          headers: {"Authorization": 'Basic QVRMbVVvM2FSZ180b1UzTWhVbnlteEdDNjJZYTo1SmF3aHJVZ0R0OXprV0VPM2Zpc0ZCN2hlWUlh'},
-        ),
-      );
+      Map<String, String> data = {
+        'grant_type': 'password',
+        'username': document,
+        'password': password,
+        'scope': 'openid profile vcn vcn_portador',
+      };
+
+      Response response = await Dio().post('https://dev-km.eprepay.com.br/oauth2/token',
+          data: data,
+          options: Options(
+            contentType: 'application/x-www-form-urlencoded',
+            headers: {"Authorization": 'Basic QVRMbVVvM2FSZ180b1UzTWhVbnlteEdDNjJZYTo1SmF3aHJVZ0R0OXprV0VPM2Zpc0ZCN2hlWUlh'},
+          ));
+
       token = response.data['access_token'];
       _setAccessToken();
       _stateController.add(LoginState.SUCCESS);
@@ -68,8 +59,8 @@ class LoginBloc extends BlocBase with LoginValidators {
 
   _setAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
-    print('Token Gravado');
     prefs.setString('access_token', token);
+    print('Token Gravado');
   }
 
   Future<void> _validateToken() async {
@@ -86,7 +77,7 @@ class LoginBloc extends BlocBase with LoginValidators {
         final prefs = await SharedPreferences.getInstance();
         prefs.remove('access_token');
 
-        print('Foi encontrado um token expirado, será apagado.');
+        print('Foi encontrado um token expirado; O token será apagado e você redirecionado para tela de Login');
         _stateController.add(LoginState.IDLE);
       }
     } else {
@@ -102,6 +93,5 @@ class LoginBloc extends BlocBase with LoginValidators {
     _documentController.close();
     _passwordController.close();
     _stateController.close();
-    _streamSubscription.cancel();
   }
 }

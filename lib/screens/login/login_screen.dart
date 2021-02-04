@@ -46,9 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             StreamBuilder(
               stream: _loginBloc.outState,
-              initialData: LoginState.LOADING,
+              initialData: LoginState.IDLE,
               builder: (context, snapshot) {
-                // print(snapshot.data);
                 if (snapshot.data == LoginState.LOADING) {
                   return Center(child: CircularProgressIndicator());
                 } else {

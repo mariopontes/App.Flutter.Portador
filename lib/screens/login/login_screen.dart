@@ -59,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-                          child: Image.network(
-                            'https://portalportadorvcndev.azureedge.net/assets/img/logo.png',
+                          child: Image.asset(
+                            'assets/images/logo.png',
                             fit: BoxFit.cover,
                           ),
                         ),

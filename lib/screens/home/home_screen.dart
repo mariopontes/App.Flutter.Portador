@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).backgroundColor,
         actions: [
           PopupMenuButton<String>(
             onSelected: options,
@@ -74,7 +75,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                 padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(108, 201, 229, 1),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54,
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 1), // changes position of shadow
+                    ),
+                  ],
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,13 +95,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Status: Cartão bloqueado'),
-                          Text('Logo.PNG'),
+                          Text('Status: Cartão bloqueado', style: TextStyle(color: Theme.of(context).accentColor)),
+                          Image.asset(
+                            'assets/images/logo-card.png',
+                            fit: BoxFit.cover,
+                          ),
                         ],
                       ),
                     ),
-                    Text('Saldo : R\$ 100.00', style: TextStyle(fontSize: 16)),
-                    Text('**** **** **** 0000', style: TextStyle(fontSize: 26)),
+                    Text('Saldo : R\$ 100.00', style: TextStyle(fontSize: 16, color: Theme.of(context).accentColor)),
+                    Text('**** **** **** 0000', style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor)),
                     SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,11 +112,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Vencimento: 10/29'),
-                              Text('CVV: 123'),
+                              Text('Vencimento: 10/29', style: TextStyle(color: Theme.of(context).accentColor)),
+                              Text('CVV: 123', style: TextStyle(color: Theme.of(context).accentColor)),
                             ],
                           ),
-                          Text('Logo.PNG'),
+                          Image.asset(
+                            'assets/images/master-card.png',
+                            fit: BoxFit.cover,
+                            height: 50,
+                          ),
                         ],
                       ),
                     ),

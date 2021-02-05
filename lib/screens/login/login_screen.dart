@@ -1,4 +1,4 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/login_block.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/authentication_block.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _document = TextEditingController();
   final _password = TextEditingController();
-  final _loginBloc = LoginBloc();
+  final _authenticationBloc = AuthenticationBloc();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -20,10 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    _loginBloc.outState.listen((state) {
-      if (state == LoginState.SUCCESS) {
+    _authenticationBloc.outState.listen((state) {
+      if (state == AuthState.SUCCESS) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
-      } else if (state == LoginState.FAIL) {
+      } else if (state == AuthState.FAIL) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Text(
             "Login e/ou Senha inválidos.",
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeDataColor = Theme.of(context).primaryColor;
+    final themeDataColor = Theme.of(context).accentColor;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -47,10 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Stack(
           children: [
             StreamBuilder(
-              stream: _loginBloc.outState,
-              initialData: LoginState.IDLE,
+              stream: _authenticationBloc.outState,
+              initialData: AuthState.IDLE,
               builder: (context, snapshot) {
-                if (snapshot.data == LoginState.LOADING) {
+                if (snapshot.data == AuthState.LOADING) {
                   return Center(child: CircularProgressIndicator());
                 } else {
                   return Form(
@@ -88,16 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         InputField(
                           label: 'Login',
                           controller: _document,
-                          stream: _loginBloc.outDocument,
-                          onChanged: _loginBloc.changeDocument,
+                          stream: _authenticationBloc.outDocument,
+                          onChanged: _authenticationBloc.changeDocument,
                         ),
                         Divider(),
                         InputField(
                           label: 'Senha',
                           controller: _password,
-                          stream: _loginBloc.outPassword,
+                          stream: _authenticationBloc.outPassword,
                           isPassword: true,
-                          onChanged: _loginBloc.changePassword,
+                          onChanged: _authenticationBloc.changePassword,
                         ),
                         Divider(),
                         Text(
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Divider(),
                         StreamBuilder(
-                          stream: _loginBloc.outSubmitValid,
+                          stream: _authenticationBloc.outSubmitValid,
                           builder: (context, snapshot) {
                             return RaisedButton(
                               padding: EdgeInsets.symmetric(vertical: 12),
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               textColor: themeDataColor,
-                              onPressed: snapshot.hasData ? _loginBloc.submit : null,
+                              onPressed: snapshot.hasData ? _authenticationBloc.signIn : null,
                               disabledColor: Colors.blue[300].withAlpha(120),
                             );
                           },

@@ -1,32 +1,32 @@
 import 'dart:async';
-// import 'dart:convert';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../validators/login_validators.dart';
 
-enum LoginState { IDLE, LOADING, SUCCESS, FAIL }
+enum AuthState { IDLE, LOADING, SUCCESS, FAIL }
 
-class LoginBloc extends BlocBase with LoginValidators {
+class AuthenticationBloc extends BlocBase with LoginValidators {
   final _documentController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
-  final _stateController = BehaviorSubject<LoginState>();
+  final _stateController = BehaviorSubject<AuthState>();
 
   Stream<bool> get outSubmitValid => Rx.combineLatest2(outDocument, outPassword, (a, b) => true);
   Stream<String> get outDocument => _documentController.stream.transform(validateDocument);
   Stream<String> get outPassword => _passwordController.stream;
-  Stream<LoginState> get outState => _stateController.stream;
+  Stream<AuthState> get outState => _stateController.stream;
 
   Function(String) get changeDocument => _documentController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
 
-  void submit() async {
+  void signIn() async {
     final document = _documentController.value;
     final password = _passwordController.value;
 
-    _stateController.add(LoginState.LOADING);
+    _stateController.add(AuthState.LOADING);
 
     try {
       Map<String, String> data = {
@@ -44,14 +44,25 @@ class LoginBloc extends BlocBase with LoginValidators {
           ));
 
       _setAccessToken(response.data['access_token']);
-      _stateController.add(LoginState.SUCCESS);
+      _stateController.add(AuthState.SUCCESS);
     } catch (e) {
       // if (e is DioError) {
       //   print(jsonDecode(e.response.data));
       // }
       print(e);
-      _stateController.add(LoginState.FAIL);
+      _stateController.add(AuthState.FAIL);
     }
+  }
+
+  void signOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('access_token');
+  }
+
+  getTokenDecoded() async {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('access_token') ?? null;
+    return JwtDecoder.decode(token);
   }
 
   _setAccessToken(String token) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputField extends StatelessWidget {
   final String label;
@@ -28,6 +29,7 @@ class InputField extends StatelessWidget {
           obscureText: isPassword ? true : false,
           keyboardType: isPassword ? TextInputType.number : TextInputType.emailAddress,
           onChanged: onChanged,
+          inputFormatters: isPassword ? [new LengthLimitingTextInputFormatter(4)] : [],
           decoration: InputDecoration(
             errorText: snapshot.hasError ? snapshot.error : null,
             errorStyle: TextStyle(

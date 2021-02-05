@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:ESPP_Rewards_App_Portador/validators/login_validators.dart';
+// import 'dart:convert';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../validators/login_validators.dart';
 
 enum LoginState { IDLE, LOADING, SUCCESS, FAIL }
 
@@ -16,9 +17,10 @@ class LoginBloc extends BlocBase with LoginValidators {
   Stream<bool> get outSubmitValid => Rx.combineLatest2(outDocument, outPassword, (a, b) => true);
   Stream<String> get outDocument => _documentController.stream.transform(validateDocument);
   Stream<String> get outPassword => _passwordController.stream;
+  Stream<LoginState> get outState => _stateController.stream;
+
   Function(String) get changeDocument => _documentController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
-  Stream<LoginState> get outState => _stateController.stream;
 
   void submit() async {
     final document = _documentController.value;
@@ -44,9 +46,10 @@ class LoginBloc extends BlocBase with LoginValidators {
       _setAccessToken(response.data['access_token']);
       _stateController.add(LoginState.SUCCESS);
     } catch (e) {
-      if (e is DioError) {
-        print(jsonDecode(e.response.data));
-      }
+      // if (e is DioError) {
+      //   print(jsonDecode(e.response.data));
+      // }
+      print(e);
       _stateController.add(LoginState.FAIL);
     }
   }

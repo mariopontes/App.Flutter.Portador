@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'App Portador',
-        theme: ThemeData(primaryColor: Colors.pinkAccent),
+        theme: ThemeData(
+          primaryColor: Colors.white,
+          backgroundColor: Colors.indigo[900],
+        ),
         debugShowCheckedModeBanner: false,
         routes: {
           '/login': (context) => LoginScreen(),

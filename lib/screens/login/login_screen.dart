@@ -36,12 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeDataColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
         padding: EdgeInsets.all(20),
         alignment: Alignment.topCenter,
-        color: Colors.indigo[900],
+        color: Theme.of(context).backgroundColor,
         child: Stack(
           children: [
             StreamBuilder(
@@ -67,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 26,
-                            color: Colors.white,
+                            color: themeDataColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -78,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 16,
                             fontStyle: FontStyle.italic,
-                            color: Colors.white,
+                            color: themeDataColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -104,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 15,
                             fontStyle: FontStyle.italic,
-                            color: Colors.white,
+                            color: themeDataColor,
                           ),
                         ),
                         Divider(),
@@ -120,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontSize: 24,
                                 ),
                               ),
-                              textColor: Colors.white,
+                              textColor: themeDataColor,
                               onPressed: snapshot.hasData ? _loginBloc.submit : null,
                               disabledColor: Colors.blue[300].withAlpha(120),
                             );

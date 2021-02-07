@@ -32,6 +32,15 @@ class BoxCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(width: 1, color: Colors.black38),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54,
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: Offset(0, 1), // changes position of shadow
+          ),
+        ],
       ),
     );
   }

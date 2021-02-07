@@ -59,16 +59,16 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
     prefs.remove('access_token');
   }
 
-  getTokenDecoded() async {
-    final prefs = await SharedPreferences.getInstance();
-    var token = prefs.getString('access_token') ?? null;
-    return JwtDecoder.decode(token);
-  }
-
-  _setAccessToken(String token) async {
+  void _setAccessToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('access_token', token);
     print('Token Gravado');
+  }
+
+  Future getTokenDecoded() async {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('access_token') ?? null;
+    return JwtDecoder.decode(token);
   }
 
   @override

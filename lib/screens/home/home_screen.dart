@@ -1,9 +1,9 @@
+import 'dart:async';
+
 import 'package:ESPP_Rewards_App_Portador/widgets/custom_carousel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-import '../../screens/data-user/data_user_screen.dart';
-import '../../screens/terms/terms_screen.dart';
 import '../../blocs/home_bloc.dart';
 import '../../blocs/authentication_block.dart';
 import '../../widgets/container_box_card.dart';
@@ -20,16 +20,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String titleHeader = 'Olá, Usuário';
 
+  StreamSubscription streamSubscription;
+
   @override
   void initState() {
     super.initState();
     _getToken();
 
-    _homeBloc.outState.listen((state) {
-      Future.delayed(Duration(seconds: 0), () {
-        if (state == BlockState.TermosOfUse) Navigator.push(context, MaterialPageRoute(builder: (context) => TermsScreen()));
-        if (state == BlockState.ChangeUserData) Navigator.push(context, MaterialPageRoute(builder: (context) => DataUserScreen()));
-      });
+    streamSubscription = _homeBloc.outState.listen((state) {
+      if (state == BlockState.TermosOfUse) Navigator.pushNamed(context, '/termos-uso');
+      if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
     });
   }
 
@@ -100,5 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
+    streamSubscription.cancel();
   }
 }

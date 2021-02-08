@@ -8,9 +8,10 @@ class HomeBloc extends BlocBase {
   Stream<BlockState> get outState => stateController.stream;
 
   void setScreen(String screen) {
-    if (screen == 'TermosOfUse') {
-      stateController.add(BlockState.TermosOfUse);
-    }
+    if (screen == 'TermosOfUse') stateController.add(BlockState.TermosOfUse);
+    if (screen == 'ChangeUserData') stateController.add(BlockState.ChangeUserData);
+    if (screen == 'ChangePassword') stateController.add(BlockState.ChangePassword);
+    if (screen == 'Extrat') stateController.add(BlockState.Extrat);
 
     Future.delayed(Duration(seconds: 0), () => stateController.add(BlockState.Home));
   }

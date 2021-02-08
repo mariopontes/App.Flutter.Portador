@@ -17,9 +17,9 @@ class MainScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(color: Colors.indigo[900], child: Center(child: CircularProgressIndicator()));
           } else if (!snapshot.data) {
-            return HomeScreen();
-          } else {
             return LoginScreen();
+          } else {
+            return HomeScreen();
           }
         },
       ),

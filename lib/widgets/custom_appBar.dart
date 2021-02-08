@@ -1,24 +1,17 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/authentication_block.dart';
 import 'package:ESPP_Rewards_App_Portador/blocs/home_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-final authBloc = BlocProvider.getBloc<AuthenticationBloc>();
-final homeBloc = BlocProvider.getBloc<HomeBloc>();
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final title;
+  CustomAppBar({@required this.title});
 
-void options(String action) async {
-  homeBloc.setScreen(action);
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 
-  if (action == 'sair') {
-    authBloc.signOut();
-    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
-}
-
-class CustomAppBard {
-  static getAppBar({@required String title}) {
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
-      // backgroundColor: Theme.of(context).backgroundColor,
       actions: [
         PopupMenuButton<String>(
           onSelected: options,
@@ -44,5 +37,11 @@ class CustomAppBard {
       ],
       title: Text(title),
     );
+  }
+
+  final homeBloc = BlocProvider.getBloc<HomeBloc>();
+
+  void options(String action) async {
+    homeBloc.setScreen(action);
   }
 }

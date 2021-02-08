@@ -1,10 +1,11 @@
-import 'package:ESPP_Rewards_App_Portador/screens/terms/terms_screen.dart';
-import 'package:ESPP_Rewards_App_Portador/widgets/custom_appBar.dart';
 import 'package:ESPP_Rewards_App_Portador/widgets/custom_carousel.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
+import '../../screens/data-user/data_user_screen.dart';
+import '../../screens/terms/terms_screen.dart';
 import '../../blocs/home_bloc.dart';
+import '../../blocs/authentication_block.dart';
 import '../../widgets/container_box_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +15,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _homeBloc = BlocProvider.getBloc<HomeBloc>();
+  final _authBloc = BlocProvider.getBloc<AuthenticationBloc>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   String titleHeader = 'Olá, Usuário';
 
   @override
@@ -23,17 +26,60 @@ class _HomeScreenState extends State<HomeScreen> {
     _getToken();
 
     _homeBloc.outState.listen((state) {
-      print(state);
-      if (state == BlockState.TermosOfUse) {
-        Route route = MaterialPageRoute(builder: (context) => TermsScreen());
-        Navigator.push(context, route);
-      } else {}
+      Future.delayed(Duration(seconds: 0), () {
+        if (state == BlockState.TermosOfUse) Navigator.push(context, MaterialPageRoute(builder: (context) => TermsScreen()));
+        if (state == BlockState.ChangeUserData) Navigator.push(context, MaterialPageRoute(builder: (context) => DataUserScreen()));
+      });
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: options,
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'ChangeUserData',
+                child: Text('Alterar Dados Cadastrais'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'ChangePassword',
+                child: Text('Alterar Senha'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'TermosOfUse',
+                child: Text('Termos de Uso'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'sair',
+                child: Text('Sair'),
+              ),
+            ],
+          )
+        ],
+        title: Text(titleHeader),
+      ),
+      body: Container(
+          color: Color.fromRGBO(108, 201, 229, 0.5),
+          padding: EdgeInsets.only(top: 20),
+          child: RefreshIndicator(
+            child: ListView(
+              children: [
+                CustomCarousel(),
+                ContainerCardBox(),
+              ],
+            ),
+            onRefresh: _refreshLocalGallery,
+          )),
+    );
+  }
+
   Future _getToken() async {
-    var decodedToken = await authBloc.getTokenDecoded();
-    print('decodedToken $decodedToken');
+    var decodedToken = await _authBloc.getTokenDecoded();
     ////////////////////////     PRECISA SER REFATORADO     //////////////////////////
     setState(() {
       if (decodedToken != null) {
@@ -42,21 +88,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<Null> _refreshLocalGallery() async {
+    print('refreshing stocks...');
+  }
+
+  void options(String action) async {
+    print('options $action');
+    _homeBloc.setScreen(action);
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: CustomAppBard.getAppBar(title: titleHeader),
-      body: Container(
-        color: Color.fromRGBO(108, 201, 229, 0.5),
-        padding: EdgeInsets.only(top: 20),
-        child: ListView(
-          children: [
-            CustomCarousel(),
-            ContainerCardBox(),
-          ],
-        ),
-      ),
-    );
+  void dispose() {
+    super.dispose();
   }
 }

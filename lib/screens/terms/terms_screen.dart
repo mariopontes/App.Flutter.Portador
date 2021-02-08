@@ -1,11 +1,10 @@
-import 'package:ESPP_Rewards_App_Portador/widgets/custom_appBar.dart';
 import 'package:flutter/material.dart';
 
 class TermsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBard.getAppBar(title: 'Termos de Uso'),
+      appBar: AppBar(title: Text('Termos de Uso')),
       body: Container(
           color: Color.fromRGBO(108, 201, 229, 0.5),
           child: SingleChildScrollView(

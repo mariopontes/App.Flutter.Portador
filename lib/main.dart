@@ -1,4 +1,5 @@
 import 'package:ESPP_Rewards_App_Portador/main_screen.dart';
+import 'package:ESPP_Rewards_App_Portador/screens/data-user/data_user_screen.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
@@ -25,14 +26,17 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'App Portador',
         theme: ThemeData(
-          accentColor: Colors.white,
-          backgroundColor: Colors.indigo[900],
-        ),
+            accentColor: Colors.white,
+            backgroundColor: Colors.indigo[900],
+            appBarTheme: AppBarTheme(
+              color: Colors.indigo[900],
+            )),
         debugShowCheckedModeBanner: false,
         routes: {
           '/login': (context) => LoginScreen(),
           '/home': (context) => HomeScreen(),
           '/termos-uso': (context) => HomeScreen(),
+          '/alterações-dados': (context) => DataUserScreen(),
         },
         home: MainScreen(),
       ),

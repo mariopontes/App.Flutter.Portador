@@ -44,6 +44,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
           ));
 
       _setAccessToken(response.data['access_token']);
+      _setDocument(document);
       _stateController.add(AuthState.SUCCESS);
     } catch (e) {
       // if (e is DioError) {
@@ -57,12 +58,19 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
   void signOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('access_token');
+    prefs.remove('document');
   }
 
   void _setAccessToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('access_token', token);
     print('Token Gravado');
+  }
+
+  void _setDocument(String document) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('document', document);
+    print('Document Gravado');
   }
 
   Future getTokenDecoded() async {

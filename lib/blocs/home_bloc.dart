@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum BlockState { Home, TermosOfUse, Extrat, ChangePassword, ChangeUserData }
+enum BlockState { Home, TermosOfUse, Extrat, ChangePassword, ChangeUserData, SignOut }
 
 class HomeBloc extends BlocBase {
   final stateController = BehaviorSubject<BlockState>();
@@ -12,8 +12,9 @@ class HomeBloc extends BlocBase {
     if (screen == 'ChangeUserData') stateController.add(BlockState.ChangeUserData);
     if (screen == 'ChangePassword') stateController.add(BlockState.ChangePassword);
     if (screen == 'Extrat') stateController.add(BlockState.Extrat);
+    if (screen == 'Sair') stateController.add(BlockState.SignOut);
 
-    Future.delayed(Duration(seconds: 0), () => stateController.add(BlockState.Home));
+    stateController.add(BlockState.Home);
   }
 
   @override

@@ -30,6 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
     streamSubscription = _homeBloc.outState.listen((state) {
       if (state == BlockState.TermosOfUse) Navigator.pushNamed(context, '/termos-uso');
       if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
+
+      if (state == BlockState.SignOut) {
+        _authBloc.signOut();
+        Navigator.pushNamed(context, '/login');
+      }
     });
   }
 
@@ -55,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text('Termos de Uso'),
               ),
               const PopupMenuItem<String>(
-                value: 'sair',
+                value: 'Sair',
                 child: Text('Sair'),
               ),
             ],
@@ -83,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ////////////////////////     PRECISA SER REFATORADO     //////////////////////////
     setState(() {
       if (decodedToken != null) {
-        titleHeader = '${decodedToken['given_name']}';
+        titleHeader = 'Olá, ${decodedToken['given_name']}';
       }
     });
   }

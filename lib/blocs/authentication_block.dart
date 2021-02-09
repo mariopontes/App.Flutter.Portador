@@ -40,7 +40,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
           data: data,
           options: Options(
             contentType: 'application/x-www-form-urlencoded',
-            headers: {"Authorization": 'Basic QVRMbVVvM2FSZ180b1UzTWhVbnlteEdDNjJZYTo1SmF3aHJVZ0R0OXprV0VPM2Zpc0ZCN2hlWUlh'},
+            headers: {"Authorization": 'Basic Tzd1SGk0VlRacnVuV1lHcU85VERZeVdmUDhrYTpleHRLQjhBakJqbWI5Uk5PTUNDZGNQOTJmbElh'},
           ));
 
       _setAccessToken(response.data['access_token']);
@@ -50,7 +50,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
       // if (e is DioError) {
       //   print(jsonDecode(e.response.data));
       // }
-      print(e);
+      print(e.response.data);
       _stateController.add(AuthState.FAIL);
     }
   }
@@ -59,6 +59,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('access_token');
     prefs.remove('document');
+    prefs.remove('currentCard');
   }
 
   void _setAccessToken(String token) async {

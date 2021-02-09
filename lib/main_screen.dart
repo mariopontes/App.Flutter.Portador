@@ -16,10 +16,10 @@ class MainScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(color: Colors.indigo[900], child: Center(child: CircularProgressIndicator()));
-          } else if (!snapshot.data) {
-            return LoginScreen();
-          } else {
+          } else if (snapshot.data) {
             return HomeScreen();
+          } else {
+            return LoginScreen();
           }
         },
       ),

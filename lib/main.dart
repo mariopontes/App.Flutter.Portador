@@ -6,6 +6,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'blocs/auth_guard_bloc.dart';
 import 'blocs/authentication_block.dart';
+import 'blocs/list_card_block.dart';
 import 'screens/login/login_screen.dart';
 import 'blocs/home_bloc.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         Bloc((i) => AuthGuardBloc(), singleton: true),
         Bloc((i) => AuthenticationBloc(), singleton: true),
         Bloc((i) => HomeBloc(), singleton: true),
+        Bloc((i) => CardBloc(), singleton: false),
       ],
       child: MaterialApp(
         title: 'App Portador',

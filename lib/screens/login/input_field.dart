@@ -1,3 +1,4 @@
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,6 +9,8 @@ class InputField extends StatelessWidget {
   final TextEditingController controller;
   final Stream<String> stream;
   final Function(String) onChanged;
+
+  final maskCpf = MaskTextInputFormatter(mask: "###.###.###-##", filter: {"#": RegExp(r'[0-9]')});
 
   InputField({
     @required this.label,
@@ -27,9 +30,13 @@ class InputField extends StatelessWidget {
           controller: controller,
           style: TextStyle(color: Colors.white),
           obscureText: isPassword ? true : false,
-          keyboardType: isPassword ? TextInputType.number : TextInputType.emailAddress,
+          keyboardType: TextInputType.number,
           onChanged: onChanged,
-          inputFormatters: isPassword ? [new LengthLimitingTextInputFormatter(4)] : [],
+          inputFormatters: isPassword
+              ? [
+                  new LengthLimitingTextInputFormatter(4),
+                ]
+              : [new LengthLimitingTextInputFormatter(14), maskCpf],
           decoration: InputDecoration(
             errorText: snapshot.hasError ? snapshot.error : null,
             errorStyle: TextStyle(

@@ -16,7 +16,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
 
   Stream<bool> get outSubmitValid => Rx.combineLatest2(outDocument, outPassword, (a, b) => true);
   Stream<String> get outDocument => _documentController.stream.transform(validateDocument);
-  Stream<String> get outPassword => _passwordController.stream;
+  Stream<String> get outPassword => _passwordController.stream.transform(validatePassword);
   Stream<AuthState> get outState => _stateController.stream;
 
   Function(String) get changeDocument => _documentController.sink.add;

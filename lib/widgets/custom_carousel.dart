@@ -1,8 +1,9 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/list_card_block.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../blocs/list_card_block.dart';
 
 class CustomCarousel extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class _CustomCarouselState extends State<CustomCarousel> {
   List cardList;
 
   bool eyesIsOpen = false;
+
+  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                 reverse: false,
                 autoPlay: false,
                 onPageChanged: (index, reason) {
+                  eyesIsOpen = false;
                   _cardBloc.getDetailsCard(stateEyes: false);
                 },
               ),
@@ -60,7 +64,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                         stream: _cardBloc.cardState,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.cardSerialNumber == item['cardSerialNumber'] && streamSnapshot.data == 'show') {
+                            if (streamSnapshot.data == 'show') {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

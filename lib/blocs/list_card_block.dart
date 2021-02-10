@@ -21,19 +21,6 @@ class CardBloc extends BlocBase {
 
   ///-------------------------Functions-----------------------///
 
-  Future getCurrentCard() async {
-    final prefs = await SharedPreferences.getInstance();
-    String cardStr = prefs.getString('currentCard') ?? null;
-
-    if (cardStr != null) {
-      var cardMap = jsonDecode(cardStr) as Map<String, dynamic>;
-      final CardModel card = CardModel.fromJson(cardMap);
-      return card;
-    }
-
-    return null;
-  }
-
   Future getCards() async {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('access_token') ?? null;
@@ -56,12 +43,12 @@ class CardBloc extends BlocBase {
   Future getDetailsCard({String proxy, bool stateEyes}) async {
     stateEyes ? _eyesController.add('show') : _eyesController.add('hidden');
 
-    if (proxy != null) {
-      final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('access_token') ?? null;
-      _document = prefs.getString('document') ?? null;
-      String cardStr = prefs.getString('currentCard') ?? null;
+    final prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('access_token') ?? null;
+    _document = prefs.getString('document') ?? null;
+    String cardStr = prefs.getString('currentCard') ?? null;
 
+    if (proxy != null) {
       if (cardStr == null) {
         try {
           Response response = await Dio().get('$BASEURL/vcn/v1.0.0/portador/detalhes/$_document/$proxy',
@@ -101,7 +88,9 @@ class CardBloc extends BlocBase {
           return null;
         }
       } else {
-        print('Cart]ao ja anexado ao sistema');
+        var cardMap = jsonDecode(cardStr) as Map<String, dynamic>;
+        final CardModel card = CardModel.fromJson(cardMap);
+        _cardController.add(card);
       }
     }
   }

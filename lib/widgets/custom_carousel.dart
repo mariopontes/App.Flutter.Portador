@@ -12,12 +12,7 @@ class CustomCarousel extends StatefulWidget {
 
 class _CustomCarouselState extends State<CustomCarousel> {
   final _cardBloc = BlocProvider.getBloc<CardBloc>();
-
-  List cardList;
-
   bool eyesIsOpen = false;
-
-  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +100,10 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                       ),
                                     ],
                                   ),
-                                  Text('${snapshot.data.cardNumber}', style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor)),
+                                  Text(
+                                    '${snapshot.data.cardNumber}',
+                                    style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor, wordSpacing: 5),
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -175,7 +173,8 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                   ),
                                 ],
                               ),
-                              Text('**** **** **** ${item['cardLastNumbers']}', style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor)),
+                              Text('**** **** **** ${item['cardLastNumbers']}',
+                                  style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor, wordSpacing: 18)),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [

@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (state == BlockState.SignOut) {
         _authBloc.signOut();
+        Navigator.pop(context);
         Navigator.pushNamed(context, '/login');
       }
     });

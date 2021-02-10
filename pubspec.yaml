@@ -36,6 +36,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   carousel_slider: ^3.0.0
   font_awesome_flutter: ^8.11.0
+  shimmer: ^1.1.2
 
 dev_dependencies:
   flutter_test:

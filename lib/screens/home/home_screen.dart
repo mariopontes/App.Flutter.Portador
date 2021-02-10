@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _refreshLocalGallery() async {
-    print('Refresh Screen....');
+    setState(() {});
   }
 
   void options(String action) async {

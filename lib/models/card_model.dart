@@ -22,7 +22,8 @@ class CardModel {
 
   CardModel.fromJson(Map<String, dynamic> json) {
     cardSerialNumber = json['cardSerialNumber'];
-    cardNumber = json['cardNumber'].replaceAllMapped(RegExp(r".{4}"), (match) => "${match.group(0)} ");
+    // cardNumber = json['cardNumber'].replaceAllMapped(RegExp(r".{4}"), (match) => "${match.group(0)} ");
+    cardNumber = json['cardNumber'];
     balance = json['balance'];
     statusCardId = json['statusCardId'];
     cardExpirationDate = json['cardExpirationDate'];
@@ -41,8 +42,6 @@ class CardModel {
     data['cardVerificationValue'] = this.cardVerificationValue;
     data['cardLastNumbers'] = this.cardLastNumbers;
     data['showDetails'] = false;
-
-    print(data);
 
     return data;
   }

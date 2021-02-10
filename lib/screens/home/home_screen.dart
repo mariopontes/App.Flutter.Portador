@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../blocs/home_bloc.dart';
 import '../../blocs/authentication_block.dart';
-import '../../widgets/container_box_card.dart';
-import '../../widgets/custom_carousel.dart';
+import './container_box_card.dart';
+import './custom_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

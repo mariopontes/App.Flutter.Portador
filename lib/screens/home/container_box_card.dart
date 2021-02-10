@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/box_card.dart';
+import '../../screens/home/box_card.dart';
 
 class ContainerCardBox extends StatelessWidget {
   const ContainerCardBox({Key key}) : super(key: key);

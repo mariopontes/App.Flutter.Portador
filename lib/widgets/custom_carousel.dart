@@ -100,10 +100,8 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    '${snapshot.data.cardNumber}',
-                                    style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor, wordSpacing: 5),
-                                  ),
+                                  Text('${snapshot.data.cardNumber}',
+                                      style: TextStyle(fontSize: 26, color: Theme.of(context).accentColor, wordSpacing: 5)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [

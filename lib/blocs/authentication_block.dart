@@ -31,7 +31,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
     try {
       Map<String, String> data = {
         'grant_type': 'password',
-        'username': document,
+        'username': document.replaceAll('.', '').replaceAll('-', ''),
         'password': password,
         'scope': 'openid profile vcn vcn_portador',
       };
@@ -44,7 +44,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
           ));
 
       _setAccessToken(response.data['access_token']);
-      _setDocument(document);
+      _setDocument(document.replaceAll('.', '').replaceAll('-', ''));
       _stateController.add(AuthState.SUCCESS);
     } catch (e) {
       // if (e is DioError) {

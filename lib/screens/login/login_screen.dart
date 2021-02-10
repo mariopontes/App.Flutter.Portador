@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.all(5),
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+                          padding: EdgeInsets.symmetric(horizontal: 75, vertical: 50),
                           child: Image.asset(
                             'assets/images/logo.png',
                             fit: BoxFit.cover,

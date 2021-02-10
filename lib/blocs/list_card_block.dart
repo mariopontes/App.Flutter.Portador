@@ -32,6 +32,9 @@ class CardBloc extends BlocBase {
             headers: {"Authorization": 'Bearer $_token'},
           ));
 
+      prefs.setString('cardProxy', response.data['cartoes'][0]['cardSerialNumber'].toString());
+      prefs.setString('cardContract', response.data['cartoes'][0]['contract_IdExternal'].toString());
+
       return response.data['cartoes'];
     } catch (e) {
       print('Erro na busca de cartoes ${e.response.data}');

@@ -1,3 +1,4 @@
+import 'package:ESPP_Rewards_App_Portador/blocs/card_actions_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/main_screen.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/data-user/data_user_screen.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         Bloc((i) => AuthenticationBloc(), singleton: true),
         Bloc((i) => HomeBloc(), singleton: true),
         Bloc((i) => CardBloc(), singleton: true),
+        Bloc((i) => CardActionsBloc(), singleton: false),
       ],
       child: MaterialApp(
         title: 'App Portador',

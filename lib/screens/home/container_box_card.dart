@@ -19,9 +19,9 @@ class ContainerCardBox extends StatelessWidget {
               crossAxisCount: 3,
               childAspectRatio: 10 / 8,
               children: <Widget>[
-                BoxCard(title: 'Bloquear Cartão'),
-                BoxCard(title: 'Desbloquear Cartão'),
-                BoxCard(title: 'Consultar Extrato'),
+                BoxCard(title: 'Bloquear Cartão', cardOptions: 'block'),
+                BoxCard(title: 'Desbloquear Cartão', cardOptions: 'desblock'),
+                BoxCard(title: 'Consultar Extrato', cardOptions: 'extract'),
               ],
             ),
           ),

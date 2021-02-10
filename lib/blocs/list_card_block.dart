@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum EyesType { ShowEyes, HiddenEsyes }
 const BASEURL = 'https://api-dev.eprepay.com.br';
 
 class CardBloc extends BlocBase {

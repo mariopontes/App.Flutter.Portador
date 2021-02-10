@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         Bloc((i) => AuthGuardBloc(), singleton: true),
         Bloc((i) => AuthenticationBloc(), singleton: true),
         Bloc((i) => HomeBloc(), singleton: true),
-        Bloc((i) => CardBloc(), singleton: false),
+        Bloc((i) => CardBloc(), singleton: true),
       ],
       child: MaterialApp(
         title: 'App Portador',

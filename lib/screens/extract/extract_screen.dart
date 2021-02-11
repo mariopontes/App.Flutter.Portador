@@ -1,4 +1,5 @@
 import 'package:ESPP_Rewards_App_Portador/blocs/card_extract_bloc.dart';
+import 'package:ESPP_Rewards_App_Portador/screens/extract/extract_box_days.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -18,19 +19,19 @@ class ExtractScreen extends StatelessWidget {
             future: _cardExtractBloc.getCardExtract(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return ListView(
+                return Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('5 dias'),
-                        Text('15 dias'),
-                        Text('30 dias'),
-                        Text('60 dias'),
+                        ExtractBoxDate(title: '15 dias', isActive: true, days: 15),
+                        ExtractBoxDate(title: '30 dias', days: 30),
+                        ExtractBoxDate(title: '60 dias', days: 60),
+                        ExtractBoxDate(title: '90 dias', days: 90),
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height * 0.77,
                       child: ListView.separated(
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
@@ -46,7 +47,7 @@ class ExtractScreen extends StatelessWidget {
                                   Text(snapshot.data[index].statusTransacao, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                                 ],
                               ),
-                              Text('R\$${snapshot.data[index].valorInterno}', style: TextStyle(fontSize: 16))
+                              Text('R\$ ${snapshot.data[index].valorInterno}', style: TextStyle(fontSize: 16))
                             ],
                           );
                         },

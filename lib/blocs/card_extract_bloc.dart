@@ -1,6 +1,7 @@
 import 'package:ESPP_Rewards_App_Portador/models/card_extract_model.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +10,8 @@ const BASEURL = 'https://api-qa.eprepay.com.br';
 enum AuthState { Success, Fail }
 
 class CardExtractBloc extends BlocBase {
+  final DateFormat maskDate = new DateFormat('yyyy/MM/dd');
+
   String _token;
   String _document;
   String _cardProxy;
@@ -19,16 +22,17 @@ class CardExtractBloc extends BlocBase {
   Stream get stateError => _messageError.stream;
   final _messageError = BehaviorSubject();
 
-  Future getCardExtract() async {
+  Future getCardExtract({String date}) async {
     _stateController.add(AuthState.Success);
-
     await this.getParams();
 
     var body = {
       'proxy': _cardProxy,
-      'dataDe': '20210111',
-      'dataAte': '20210211',
+      'dataDe': date != null ? date : maskDate.format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 15)),
+      'dataAte': maskDate.format(new DateTime.now()),
     };
+
+    print(body);
 
     try {
       Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/cartao/extrato/$_document',

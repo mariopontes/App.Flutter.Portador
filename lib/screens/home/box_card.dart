@@ -40,7 +40,10 @@ class BoxCard extends StatelessWidget {
             child: new Material(
               child: new InkWell(
                 onTap: () {
-                  showDialog(
+                  if (cardOptions == 'extract') {
+                    Navigator.pushNamed(context, '/extrato-cartao');
+                  } else {
+                    showDialog(
                       barrierDismissible: true, //tapping outside dialog will close the dialog if set 'true'
                       context: context,
                       builder: (context) {
@@ -63,7 +66,6 @@ class BoxCard extends StatelessWidget {
                                 if (cardOptions == 'desblock') {
                                   _cardActionsBloc.unBlockCard();
                                 }
-                                if (cardOptions == 'extract') print('Redirect To Extrat Card');
 
                                 Future.delayed(Duration(milliseconds: 200), () {
                                   Navigator.of(context).pop();
@@ -72,7 +74,9 @@ class BoxCard extends StatelessWidget {
                             ),
                           ],
                         );
-                      });
+                      },
+                    );
+                  }
                 },
                 child: Center(
                   child: Text(

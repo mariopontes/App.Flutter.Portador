@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const BASEURL = 'https://api-dev.eprepay.com.br';
+const BASEURL = 'https://api-qa.eprepay.com.br';
 
 class CardBloc extends BlocBase {
   String _token;

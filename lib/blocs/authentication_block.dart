@@ -36,11 +36,11 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
         'scope': 'openid profile vcn vcn_portador',
       };
 
-      Response response = await Dio().post('https://dev-km.eprepay.com.br/oauth2/token',
+      Response response = await Dio().post('https://qa-km.eprepay.com.br/oauth2/token',
           data: data,
           options: Options(
             contentType: 'application/x-www-form-urlencoded',
-            headers: {"Authorization": 'Basic Tzd1SGk0VlRacnVuV1lHcU85VERZeVdmUDhrYTpleHRLQjhBakJqbWI5Uk5PTUNDZGNQOTJmbElh'},
+            headers: {"Authorization": 'Basic VEdienM1VnZFSGltTGViUmd0V2RJUXBZOWxBYToyWFRFSDYzNXVXOXJEc3o5MmdKcjFDV1pDc0Fh'},
           ));
 
       _setAccessToken(response.data['access_token']);
@@ -59,7 +59,9 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('access_token');
     prefs.remove('document');
+    prefs.remove('cardProxy');
     prefs.remove('currentCard');
+    prefs.remove('cardContract');
   }
 
   void _setAccessToken(String token) async {

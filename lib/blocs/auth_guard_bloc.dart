@@ -18,6 +18,10 @@ class AuthGuardBloc extends BlocBase with LoginValidators {
       } else {
         final prefs = await SharedPreferences.getInstance();
         prefs.remove('access_token');
+        prefs.remove('document');
+        prefs.remove('cardProxy');
+        prefs.remove('currentCard');
+        prefs.remove('cardContract');
         print('Foi encontrado um token expirado; O token será apagado e você redirecionado para tela de Login');
         return false;
       }

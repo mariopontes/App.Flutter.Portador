@@ -1,15 +1,20 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/card_actions_bloc.dart';
-import 'package:ESPP_Rewards_App_Portador/main_screen.dart';
-import 'package:ESPP_Rewards_App_Portador/screens/data-user/data_user_screen.dart';
-import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
-import 'package:ESPP_Rewards_App_Portador/screens/terms/terms_screen.dart';
+import 'package:ESPP_Rewards_App_Portador/screens/extract/extract_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+
 import 'blocs/auth_guard_bloc.dart';
 import 'blocs/authentication_block.dart';
 import 'blocs/list_card_block.dart';
-import 'screens/login/login_screen.dart';
 import 'blocs/home_bloc.dart';
+import 'blocs/card_actions_bloc.dart';
+import 'blocs/card_extract_bloc.dart';
+
+import 'screens/data-user/data_user_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/terms/terms_screen.dart';
+import 'screens/login/login_screen.dart';
+import 'main_screen.dart';
 
 final authGuardBloc = BlocProvider.getBloc<AuthGuardBloc>();
 
@@ -29,6 +34,7 @@ class MyApp extends StatelessWidget {
         Bloc((i) => HomeBloc(), singleton: true),
         Bloc((i) => CardBloc(), singleton: true),
         Bloc((i) => CardActionsBloc(), singleton: false),
+        Bloc((i) => CardExtractBloc(), singleton: false),
       ],
       child: MaterialApp(
         title: 'App Portador',
@@ -45,7 +51,13 @@ class MyApp extends StatelessWidget {
           '/home': (context) => HomeScreen(),
           '/termos-uso': (context) => TermsScreen(),
           '/alterações-dados': (context) => DataUserScreen(),
+          '/extrato-cartao': (context) => ExtractScreen(),
         },
+        localizationsDelegates: [
+          GlobalWidgetsLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: [Locale('pt', 'BR')],
         home: MainScreen(),
       ),
     );

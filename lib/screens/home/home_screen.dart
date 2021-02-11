@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
 
       if (state == BlockState.SignOut) {
+        print('Aqui');
         _authBloc.signOut();
         Navigator.pop(context);
         Navigator.pushNamed(context, '/login');
@@ -60,17 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: Container(
-          color: Color.fromRGBO(108, 201, 229, 0.5),
-          padding: EdgeInsets.only(top: 20),
-          child: RefreshIndicator(
-            onRefresh: () => _refreshLocalGallery(),
-            child: ListView(
-              children: [
-                CustomCarousel(),
-                ContainerCardBox(),
-              ],
-            ),
-          )),
+        color: Color.fromRGBO(108, 201, 229, 0.5),
+        padding: EdgeInsets.only(top: 20),
+        child: RefreshIndicator(
+          onRefresh: () => _refreshLocalGallery(),
+          child: ListView(
+            children: [
+              CustomCarousel(),
+              ContainerCardBox(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

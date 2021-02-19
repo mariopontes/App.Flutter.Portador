@@ -24,17 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getToken();
 
-    streamSubscription = _homeBloc.outState.listen((state) {
-      if (state == BlockState.TermosOfUse) Navigator.pushNamed(context, '/termos-uso');
-      if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
+    streamSubscription = _homeBloc.outState.listen(
+      (state) {
+        if (state == BlockState.TermosOfUse) Navigator.pushNamed(context, '/termos-uso');
+        if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
 
-      if (state == BlockState.SignOut) {
-        print('Aqui');
-        _authBloc.signOut();
-        Navigator.pop(context);
-        Navigator.pushNamed(context, '/login');
-      }
-    });
+        if (state == BlockState.SignOut) {
+          print('Aqui');
+          _authBloc.signOut();
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/login');
+        }
+      },
+    );
   }
 
   @override

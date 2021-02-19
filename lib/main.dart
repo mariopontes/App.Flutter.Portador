@@ -16,8 +16,6 @@ import 'screens/terms/terms_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'main_screen.dart';
 
-final authGuardBloc = BlocProvider.getBloc<AuthGuardBloc>();
-
 void main() {
   runApp(MyApp());
 }

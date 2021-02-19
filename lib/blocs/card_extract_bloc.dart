@@ -7,32 +7,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const BASEURL = 'https://api-qa.eprepay.com.br';
 
-enum AuthState { Success, Fail }
+enum DayState { Box1, Box2, Box3, Box4 }
 
 class CardExtractBloc extends BlocBase {
-  final DateFormat maskDate = new DateFormat('yyyy/MM/dd');
-
+  DateFormat maskDate = new DateFormat('yyyy/MM/dd');
   String _token;
   String _document;
   String _cardProxy;
+  String _dateFormated;
 
-  Stream<AuthState> get outState => _stateController.stream;
-  final _stateController = BehaviorSubject<AuthState>();
+  Stream<DayState> get outState => _selectedDaysController.stream;
+  final _selectedDaysController = BehaviorSubject<DayState>();
 
-  Stream get stateError => _messageError.stream;
-  final _messageError = BehaviorSubject();
+  Future getCardExtract({int days}) async {
+    days != null
+        ? _dateFormated = maskDate.format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - days))
+        : _dateFormated = null;
 
-  Future getCardExtract({String date}) async {
-    _stateController.add(AuthState.Success);
     await this.getParams();
 
     var body = {
       'proxy': _cardProxy,
-      'dataDe': date != null ? date : maskDate.format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 15)),
+      'dataDe': _dateFormated != null ? _dateFormated : maskDate.format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 15)),
       'dataAte': maskDate.format(new DateTime.now()),
     };
-
-    print(body);
 
     try {
       Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/cartao/extrato/$_document',
@@ -42,17 +40,11 @@ class CardExtractBloc extends BlocBase {
             headers: {"Authorization": 'Bearer $_token'},
           ));
 
-      // print(jsonDecode(response.data['extrato']['detalhe_transacoes_new'].map((data) => CardExtractModel.fromJson(data)).toList()));
       var lista = response.data['extrato']['detalhe_transacoes_new'].map((data) => CardExtractModel.fromJson(data)).toList();
-
-      // print(lista[0].timestamp);
-
       List extractList = lista;
 
       return extractList;
     } catch (e) {
-      _messageError.add(e.response.data['mensagem']);
-      _stateController.add(AuthState.Fail);
       return null;
     }
   }
@@ -67,7 +59,6 @@ class CardExtractBloc extends BlocBase {
   @override
   void dispose() {
     super.dispose();
-
-    _stateController.close();
+    _selectedDaysController.close();
   }
 }

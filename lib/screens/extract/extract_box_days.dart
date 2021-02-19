@@ -1,7 +1,6 @@
 import 'package:ESPP_Rewards_App_Portador/blocs/card_extract_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ExtractBoxDate extends StatelessWidget {
   final _cardExtractBloc = BlocProvider.getBloc<CardExtractBloc>();
@@ -42,8 +41,6 @@ class ExtractBoxDate extends StatelessWidget {
   }
 
   testefunction() {
-    final DateFormat maskDate = new DateFormat('yyyy/MM/dd');
-    String dateFormated = maskDate.format(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - days));
-    _cardExtractBloc.getCardExtract(date: dateFormated);
+    _cardExtractBloc.getCardExtract(days: days);
   }
 }

@@ -32,11 +32,7 @@ class InputField extends StatelessWidget {
           obscureText: isPassword ? true : false,
           keyboardType: TextInputType.number,
           onChanged: onChanged,
-          inputFormatters: isPassword
-              ? [
-                  new LengthLimitingTextInputFormatter(4),
-                ]
-              : [new LengthLimitingTextInputFormatter(14), maskCpf],
+          inputFormatters: isPassword ? [new LengthLimitingTextInputFormatter(4)] : [new LengthLimitingTextInputFormatter(14), maskCpf],
           decoration: InputDecoration(
             errorText: snapshot.hasError ? snapshot.error : null,
             errorStyle: TextStyle(
@@ -54,9 +50,10 @@ class InputField extends StatelessWidget {
               ),
             ),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-              color: Colors.white70,
-            )),
+              borderSide: BorderSide(
+                color: Colors.white70,
+              ),
+            ),
           ),
         );
       },

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         Bloc((i) => HomeBloc(), singleton: true),
         Bloc((i) => CardBloc(), singleton: true),
         Bloc((i) => CardActionsBloc(), singleton: false),
-        Bloc((i) => CardExtractBloc(), singleton: false),
+        Bloc((i) => CardExtractBloc(), singleton: true),
       ],
       child: MaterialApp(
         title: 'App Portador',

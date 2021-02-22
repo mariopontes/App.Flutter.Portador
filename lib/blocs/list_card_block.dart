@@ -18,9 +18,14 @@ class CardBloc extends BlocBase {
   final _cardController = BehaviorSubject();
   Stream get cardState => _cardController.stream;
 
+  final _actionsController = BehaviorSubject();
+  Stream get actionState => _actionsController.stream;
+
   ///-------------------------Functions-----------------------///
 
   Future getCards() async {
+    _actionsController.add('loading');
+
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('access_token') ?? null;
     _document = prefs.getString('document') ?? null;
@@ -35,8 +40,10 @@ class CardBloc extends BlocBase {
       prefs.setString('cardProxy', response.data['cartoes'][0]['cardSerialNumber'].toString());
       prefs.setString('cardContract', response.data['cartoes'][0]['contract_IdExternal'].toString());
 
+      _actionsController.add('success');
       return response.data['cartoes'];
     } catch (e) {
+      _actionsController.add('loading');
       print('Erro na busca de cartoes ${e.response.data}');
       return null;
     }
@@ -102,5 +109,6 @@ class CardBloc extends BlocBase {
     super.dispose();
     _eyesController.close();
     _cardController.close();
+    _actionsController.close();
   }
 }

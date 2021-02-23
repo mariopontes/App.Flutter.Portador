@@ -1,3 +1,4 @@
+import 'package:ESPP_Rewards_App_Portador/blocs/data_user_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/extract/extract_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -31,8 +32,9 @@ class MyApp extends StatelessWidget {
         Bloc((i) => AuthenticationBloc(), singleton: true),
         Bloc((i) => HomeBloc(), singleton: true),
         Bloc((i) => CardBloc(), singleton: true),
-        Bloc((i) => CardActionsBloc(), singleton: false),
         Bloc((i) => CardExtractBloc(), singleton: true),
+        Bloc((i) => CardActionsBloc(), singleton: false),
+        Bloc((i) => DataUserBloc(), singleton: false),
       ],
       child: MaterialApp(
         title: 'App Portador',

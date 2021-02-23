@@ -104,6 +104,14 @@ class CardBloc extends BlocBase {
     }
   }
 
+  setCurrentCard(card) async {
+    if (card != null) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('cardProxy', card['cardSerialNumber'].toString());
+      prefs.setString('cardContract', card['contract_IdExternal'].toString());
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();

@@ -35,7 +35,6 @@ class CardActionsBloc extends BlocBase {
             headers: {"Authorization": 'Bearer $_token'},
           ));
 
-      print(response.data);
       return response.data;
     } catch (e) {
       _messageError.add(e.response.data['mensagem']);

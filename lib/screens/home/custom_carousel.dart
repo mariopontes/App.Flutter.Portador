@@ -19,7 +19,6 @@ class _CustomCarouselState extends State<CustomCarousel> {
     return FutureBuilder(
       future: _cardBloc.getCards(),
       builder: (context, snapshot) {
-        print(snapshot.data);
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             return CarouselSlider(

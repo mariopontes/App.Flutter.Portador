@@ -1,4 +1,4 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/authentication_block.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/authentication_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
 
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import '../../blocs/home_bloc.dart';
-import '../../blocs/authentication_block.dart';
+import '../../blocs/authentication_bloc.dart';
 import './container_box_card.dart';
 import './custom_carousel.dart';
 

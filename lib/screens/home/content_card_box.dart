@@ -1,4 +1,4 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/list_card_block.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/list_card_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

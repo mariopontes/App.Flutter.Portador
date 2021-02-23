@@ -4,7 +4,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../../blocs/list_card_block.dart';
+import '../../blocs/list_card_bloc.dart';
 
 class CustomCarousel extends StatefulWidget {
   @override

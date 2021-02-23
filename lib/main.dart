@@ -4,8 +4,8 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'blocs/auth_guard_bloc.dart';
-import 'blocs/authentication_block.dart';
-import 'blocs/list_card_block.dart';
+import 'blocs/authentication_bloc.dart';
+import 'blocs/list_card_bloc.dart';
 import 'blocs/home_bloc.dart';
 import 'blocs/card_actions_bloc.dart';
 import 'blocs/card_extract_bloc.dart';

@@ -194,6 +194,10 @@ class _ExtractScreenState extends State<ExtractScreen> {
                     return Center(child: Text('falha na busca dos dados'));
                   }
 
+                  if (snapshot.data.length == 0) {
+                    return SizedBox(height: 50, child: Center(child: Text('Você não possui extratos', style: TextStyle(fontSize: 16))));
+                  }
+
                   return Column(
                     children: [
                       Container(

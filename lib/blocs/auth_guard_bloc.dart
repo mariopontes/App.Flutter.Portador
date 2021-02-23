@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:ESPP_Rewards_App_Portador/validators/login_validators.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthGuardBloc extends BlocBase with LoginValidators {
+class AuthGuardBloc extends BlocBase {
   Future<bool> tokenIsValid() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('access_token') ?? null;

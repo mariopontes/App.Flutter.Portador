@@ -13,7 +13,7 @@ class ExtractScreen extends StatefulWidget {
 
 class _ExtractScreenState extends State<ExtractScreen> {
   final cardExtractBloc = BlocProvider.getBloc<CardExtractBloc>();
-  final maskCpf = MaskTextInputFormatter(mask: "##/##/####", filter: {"#": RegExp(r'[0-9]')});
+  final maskDate = MaskTextInputFormatter(mask: "##/##/####", filter: {"#": RegExp(r'[0-9]')});
 
   final _dataDe = TextEditingController();
   final _dataAte = TextEditingController();
@@ -96,7 +96,7 @@ class _ExtractScreenState extends State<ExtractScreen> {
                                             child: TextFormField(
                                               controller: _dataDe,
                                               keyboardType: TextInputType.number,
-                                              inputFormatters: [maskCpf],
+                                              inputFormatters: [maskDate],
                                               decoration: InputDecoration(
                                                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                 hintText: 'dd/mm/aaaa',
@@ -135,7 +135,7 @@ class _ExtractScreenState extends State<ExtractScreen> {
                                             child: TextFormField(
                                               controller: _dataAte,
                                               keyboardType: TextInputType.number,
-                                              inputFormatters: [maskCpf],
+                                              inputFormatters: [maskDate],
                                               decoration: InputDecoration(
                                                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                                                 hintText: 'dd/mm/aaaa',

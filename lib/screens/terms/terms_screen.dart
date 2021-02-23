@@ -6,7 +6,7 @@ class TermsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Termos de Uso')),
       body: Container(
-          color: Color.fromRGBO(108, 201, 229, 0.5),
+          // color: Color.fromRGBO(108, 201, 229, 0.5),
           child: SingleChildScrollView(
             padding: EdgeInsets.all(10),
             child: Text(

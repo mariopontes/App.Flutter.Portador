@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.16.1
   expandable: ^4.1.4
   jiffy: ^3.0.1
+  cool_alert: ^1.0.3
 
 dev_dependencies:
   flutter_test:

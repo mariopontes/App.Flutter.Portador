@@ -47,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           PopupMenuButton<String>(
             onSelected: options,
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(value: 'ChangeUserData', child: Text('Alterar Dados Cadastrais')),
-              PopupMenuItem<String>(value: 'ChangePassword', child: Text('Alterar Senha')),
+              PopupMenuItem<String>(value: 'ChangeUserData', child: Text('Dados de Cadastro')),
               PopupMenuItem<String>(value: 'TermosOfUse', child: Text('Termos de Uso')),
               PopupMenuItem<String>(value: 'Sair', child: Text('Sair')),
             ],

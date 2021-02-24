@@ -47,8 +47,7 @@ class ForgotBloc extends BlocBase {
       return response.data;
     } catch (e) {
       print(e);
-
-      Future.delayed(Duration(seconds: 3), () => {_stateController.add('error')});
+      _stateController.add('error');
       return null;
     }
   }

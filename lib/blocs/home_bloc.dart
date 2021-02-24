@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum BlockState { Home, TermosOfUse, Extrat, ChangePassword, ChangeUserData, SignOut }
+enum BlockState { Home, TermosOfUse, Extrat, ChangePassword, ChangeUserData, SignOut, RefreshScreen }
 
 class HomeBloc extends BlocBase {
   final _stateController = BehaviorSubject<BlockState>();
@@ -22,6 +22,10 @@ class HomeBloc extends BlocBase {
 
   void setNameUser(String name) {
     _nameUserController.add(name);
+  }
+
+  void refreshHome() {
+    _stateController.add(BlockState.RefreshScreen);
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const BASEURL = 'https://api-qa.eprepay.com.br';
-enum AuthState { Success, Fail }
 
 class CardActionsBloc extends BlocBase {
   String _token;
@@ -12,8 +11,8 @@ class CardActionsBloc extends BlocBase {
   String _cardProxy;
   String _cardContract;
 
-  Stream<AuthState> get outState => _stateController.stream;
-  final _stateController = BehaviorSubject<AuthState>();
+  Stream get outState => _stateController.stream;
+  final _stateController = BehaviorSubject();
 
   Stream get stateError => _messageError.stream;
   final _messageError = BehaviorSubject();
@@ -35,10 +34,11 @@ class CardActionsBloc extends BlocBase {
             headers: {"Authorization": 'Bearer $_token'},
           ));
 
+      _stateController.add('success2');
       return response.data;
     } catch (e) {
       _messageError.add(e.response.data['mensagem']);
-      _stateController.add(AuthState.Fail);
+      _stateController.add('error');
       return null;
     }
   }
@@ -60,11 +60,11 @@ class CardActionsBloc extends BlocBase {
             headers: {"Authorization": 'Bearer $_token'},
           ));
 
-      print(response.data);
+      _stateController.add('success2');
       return response.data;
     } catch (e) {
       _messageError.add(e.response.data['mensagem']);
-      _stateController.add(AuthState.Fail);
+      _stateController.add('error');
       return null;
     }
   }

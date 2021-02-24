@@ -1,10 +1,13 @@
 import 'package:ESPP_Rewards_App_Portador/blocs/card_actions_bloc.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/home_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/blocs/list_card_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 
 class BoxCard extends StatelessWidget {
   final _cardActionsBloc = BlocProvider.getBloc<CardActionsBloc>();
+  final _homeBloc = BlocProvider.getBloc<HomeBloc>();
   final cardBloc = BlocProvider.getBloc<CardBloc>();
 
   final String title;
@@ -21,17 +24,27 @@ class BoxCard extends StatelessWidget {
       builder: (context) {
         _cardActionsBloc.outState.listen(
           (state) {
-            if (state == AuthState.Fail) {
+            if (state == 'error') {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: StreamBuilder(
                     stream: _cardActionsBloc.stateError,
-                    initialData: 'Falha na operação',
+                    initialData: 'Falha na operação, tente novamente ou contate um administrador.',
                     builder: (context, snapshot) {
                       return Text(snapshot.data);
                     },
                   ),
                 ), // SnackBar
+              );
+            }
+            if (state == 'success1' || state == 'success2') {
+              _homeBloc.refreshHome();
+              CoolAlert.show(
+                context: context,
+                type: CoolAlertType.success,
+                text: "Operação realizada com sucesso.",
+                title: state == 'success1' ? 'Bloqueio do Cartão' : 'Desbloqueio do Cartão',
+                confirmBtnColor: Colors.indigo[900],
               );
             }
           },

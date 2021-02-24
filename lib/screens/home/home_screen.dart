@@ -28,9 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
       (state) {
         if (state == BlockState.TermosOfUse) Navigator.pushNamed(context, '/termos-uso');
         if (state == BlockState.ChangeUserData) Navigator.pushNamed(context, '/alterações-dados');
-
+        if (state == BlockState.RefreshScreen) this._refreshLocalGallery();
         if (state == BlockState.SignOut) {
-          print('Aqui');
           _authBloc.signOut();
           Navigator.pop(context);
           Navigator.pushNamed(context, '/login');

@@ -22,9 +22,9 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
   Function(String) get changeDocument => _documentController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
 
-  void signIn() async {
-    final document = _documentController.value;
-    final password = _passwordController.value;
+  void signIn({cpf, senha}) async {
+    final document = cpf != null ? cpf : _documentController.value;
+    final password = senha != null ? senha : _passwordController.value;
 
     _stateController.add(AuthState.LOADING);
 

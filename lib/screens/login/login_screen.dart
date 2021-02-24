@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _document = TextEditingController();
   final _password = TextEditingController();
-  final _authenticationBloc = AuthenticationBloc();
+  final authBloc = AuthenticationBloc();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    _authenticationBloc.outState.listen((state) {
+    authBloc.outState.listen((state) {
       if (state == AuthState.SUCCESS) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
       } else if (state == AuthState.FAIL) {
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Stack(
           children: [
             StreamBuilder(
-              stream: _authenticationBloc.outState,
+              stream: authBloc.outState,
               initialData: AuthState.IDLE,
               builder: (context, snapshot) {
                 if (snapshot.data == AuthState.LOADING) {
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Text(
-                          'Acessar o Portal',
+                          'Portal do Portador',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 26,
@@ -88,16 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         InputField(
                           label: 'Login',
                           controller: _document,
-                          stream: _authenticationBloc.outDocument,
-                          onChanged: _authenticationBloc.changeDocument,
+                          stream: authBloc.outDocument,
+                          onChanged: authBloc.changeDocument,
                         ),
                         Divider(),
                         InputField(
                           label: 'Senha',
                           controller: _password,
-                          stream: _authenticationBloc.outPassword,
+                          stream: authBloc.outPassword,
                           isPassword: true,
-                          onChanged: _authenticationBloc.changePassword,
+                          onChanged: authBloc.changePassword,
                         ),
                         Divider(),
                         Text(
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Divider(),
                         StreamBuilder(
-                          stream: _authenticationBloc.outSubmitValid,
+                          stream: authBloc.outSubmitValid,
                           builder: (context, snapshot) {
                             return RaisedButton(
                               padding: EdgeInsets.symmetric(vertical: 12),
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                               textColor: themeDataColor,
-                              onPressed: snapshot.hasData ? _authenticationBloc.signIn : null,
+                              onPressed: snapshot.hasData ? authBloc.signIn : null,
                               disabledColor: Colors.blue[300].withAlpha(120),
                             );
                           },
@@ -135,9 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.indigo[900],
                           child: Text(
                             'Primeiro Acesso',
-                            style: TextStyle(
-                              fontSize: 22,
-                            ),
+                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -146,6 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           textColor: Colors.white,
                           onPressed: () {
                             print('Primeiro Acesso');
+                            Navigator.pushNamed(context, '/primeiro-acesso');
                           },
                         ),
                         Divider(),

@@ -44,6 +44,11 @@ class DataUserInput extends StatelessWidget {
           fontSize: 16,
           color: Colors.black87,
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.redAccent,
+          ),
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.black87,

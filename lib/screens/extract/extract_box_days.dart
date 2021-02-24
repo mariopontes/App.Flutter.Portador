@@ -24,12 +24,14 @@ class ExtractBoxDate extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         side: BorderSide(color: Colors.indigo[900]),
       ),
-      child: Text(title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: cardExtractBloc.numberPage == days ? Colors.indigo[900] : Colors.white,
-          )),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: cardExtractBloc.numberPage == days ? Colors.indigo[900] : Colors.white,
+        ),
+      ),
     );
   }
 }

@@ -122,11 +122,43 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontSize: 24,
                                 ),
                               ),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                               textColor: themeDataColor,
                               onPressed: snapshot.hasData ? _authenticationBloc.signIn : null,
                               disabledColor: Colors.blue[300].withAlpha(120),
                             );
                           },
+                        ),
+                        Divider(),
+                        RaisedButton(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          color: Colors.indigo[900],
+                          child: Text(
+                            'Primeiro Acesso',
+                            style: TextStyle(
+                              fontSize: 22,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: BorderSide(color: Colors.white),
+                          ),
+                          textColor: Colors.white,
+                          onPressed: () {
+                            print('Primeiro Acesso');
+                          },
+                        ),
+                        Divider(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Esqueceu a senha?  ', style: TextStyle(color: Colors.white, fontSize: 15)),
+                            GestureDetector(
+                              onTap: () => {print('Esqueci minha senha')},
+                              child: Text('Clique aqui', style: TextStyle(color: Colors.lightGreen, fontSize: 16, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
                         ),
                       ],
                     ),

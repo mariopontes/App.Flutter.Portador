@@ -57,7 +57,7 @@ class DataUserScreen extends StatelessWidget {
                 if (state == 'error') {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Falha na operação, tente novamente ou contate um administrador.'),
+                      content: Text(dataUserBloc.messageError),
                     ), // SnackBar
                   );
                 }
@@ -69,6 +69,12 @@ class DataUserScreen extends StatelessWidget {
                     title: state == 'success1' ? 'Alteração de Dados' : 'Alteração de Senha',
                     backgroundColor: Colors.white,
                     confirmBtnColor: Colors.indigo[900],
+                    onConfirmBtnTap: () {
+                      Navigator.pop(context);
+                      senhaController.clear();
+                      novaSenhaController.clear();
+                      confirmacaoNovaSenhaController.clear();
+                    },
                   );
                 }
               },

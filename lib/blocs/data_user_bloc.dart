@@ -12,6 +12,7 @@ class DataUserBloc extends BlocBase with DataUserValidators {
   DateFormat maskDate = new DateFormat('yyyy/MM/dd');
   String _token;
   String _document;
+  String messageError;
 
   final _stateController = BehaviorSubject();
   Stream get outState => _stateController.stream;
@@ -82,9 +83,16 @@ class DataUserBloc extends BlocBase with DataUserValidators {
         _stateController.add('success2');
         return response.data;
       } catch (e) {
+        if (e is DioError) {
+          messageError = e.response.data['mensagem'];
+        }
+
         _stateController.add('error');
         return null;
       }
+    } else {
+      _stateController.add('error');
+      messageError = 'A senhas não conferem, verifique e tente novamente';
     }
   }
 

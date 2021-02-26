@@ -1,13 +1,15 @@
 import 'package:ESPP_Rewards_App_Portador/blocs/data_user_bloc.dart';
-import 'package:ESPP_Rewards_App_Portador/blocs/forgot_bloc.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/first_access_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/extract/extract_screen.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/first-access/first_access_screen.dart';
+import 'package:ESPP_Rewards_App_Portador/screens/forgot-pass/forgot_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'blocs/auth_guard_bloc.dart';
 import 'blocs/authentication_bloc.dart';
+import 'blocs/forgot_pass_bloc.dart';
 import 'blocs/list_card_bloc.dart';
 import 'blocs/home_bloc.dart';
 import 'blocs/card_actions_bloc.dart';
@@ -37,7 +39,8 @@ class MyApp extends StatelessWidget {
         Bloc((i) => CardExtractBloc(), singleton: true),
         Bloc((i) => CardActionsBloc(), singleton: false),
         Bloc((i) => DataUserBloc(), singleton: false),
-        Bloc((i) => ForgotBloc(), singleton: false),
+        Bloc((i) => FirstAccessBloc(), singleton: false),
+        Bloc((i) => ForgotPassBloc(), singleton: false),
       ],
       child: MaterialApp(
         title: 'App Portador',
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (context) => LoginScreen(),
           '/primeiro-acesso': (context) => FirstAccessScreen(),
+          '/esqueci-senha': (context) => ForgotScreen(),
           '/home': (context) => HomeScreen(),
           '/termos-uso': (context) => TermsScreen(),
           '/alterações-dados': (context) => DataUserScreen(),

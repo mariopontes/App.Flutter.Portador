@@ -1,15 +1,12 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:rxdart/rxdart.dart';
 
 const BASEURL = 'https://api-qa.eprepay.com.br';
 
-class ForgotBloc extends BlocBase {
-  DateFormat maskDate = new DateFormat('yyyy/MM/dd');
-
+class FirstAccessBloc extends BlocBase {
   final _stateController = BehaviorSubject();
   Stream get outState => _stateController.stream;
 
@@ -33,8 +30,6 @@ class ForgotBloc extends BlocBase {
       'DataNascimento': Jiffy(nascimento, "dd/MM/yyyy").format("yyyy/MM/dd"),
       'Senha': senha,
     };
-
-    print(body);
 
     try {
       Response response = await Dio().post(

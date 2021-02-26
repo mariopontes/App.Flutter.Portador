@@ -68,5 +68,6 @@ class FirstAccessInput extends StatelessWidget {
     if (type == 'cpf' || type == 'senha') return TextInputType.number;
     if (type == 'nome') return TextInputType.text;
     if (type == 'nascimento') return TextInputType.datetime;
+    if (type == 'email') return TextInputType.emailAddress;
   }
 }

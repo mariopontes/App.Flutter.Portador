@@ -143,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           textColor: Colors.white,
                           onPressed: () {
-                            print('Primeiro Acesso');
                             Navigator.pushNamed(context, '/primeiro-acesso');
                           },
                         ),
@@ -154,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Text('Esqueceu a senha?  ', style: TextStyle(color: Colors.white, fontSize: 15)),
                             GestureDetector(
-                              onTap: () => {print('Esqueci minha senha')},
+                              onTap: () => {Navigator.pushNamed(context, '/esqueci-senha')},
                               child: Text('Clique aqui', style: TextStyle(color: Colors.lightGreen, fontSize: 16, fontWeight: FontWeight.bold)),
                             ),
                           ],

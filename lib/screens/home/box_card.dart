@@ -44,6 +44,7 @@ class BoxCard extends StatelessWidget {
                 type: CoolAlertType.success,
                 text: "Operação realizada com sucesso.",
                 title: state == 'success1' ? 'Bloqueio do Cartão' : 'Desbloqueio do Cartão',
+                backgroundColor: Colors.white,
                 confirmBtnColor: Colors.indigo[900],
               );
             }

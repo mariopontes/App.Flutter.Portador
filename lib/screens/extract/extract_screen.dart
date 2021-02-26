@@ -165,7 +165,7 @@ class _ExtractScreenState extends State<ExtractScreen> {
                                 margin: EdgeInsets.only(top: 15),
                                 child: FlatButton(
                                   child: Text('Buscar'),
-                                  color: Colors.purpleAccent,
+                                  color: Colors.indigo[900],
                                   textColor: Colors.white,
                                   onPressed: () => cardExtractBloc.getCardExtract(dataDe: _dataDe.text, dataAte: _dataAte.text),
                                 ),

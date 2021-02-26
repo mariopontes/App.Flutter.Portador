@@ -67,6 +67,7 @@ class DataUserScreen extends StatelessWidget {
                     type: CoolAlertType.success,
                     text: "Operação realizada com sucesso.",
                     title: state == 'success1' ? 'Alteração de Dados' : 'Alteração de Senha',
+                    backgroundColor: Colors.white,
                     confirmBtnColor: Colors.indigo[900],
                   );
                 }

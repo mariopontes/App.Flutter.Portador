@@ -1,12 +1,12 @@
 import 'package:ESPP_Rewards_App_Portador/blocs/authentication_bloc.dart';
-import 'package:ESPP_Rewards_App_Portador/blocs/forgot_bloc.dart';
+import 'package:ESPP_Rewards_App_Portador/blocs/first_access_bloc.dart';
 import 'package:ESPP_Rewards_App_Portador/screens/first-access/first_access_input.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 
 class FirstAccessScreen extends StatelessWidget {
-  final forgotBloc = BlocProvider.getBloc<ForgotBloc>();
+  final firstAccessBloc = BlocProvider.getBloc<FirstAccessBloc>();
   final authBloc = BlocProvider.getBloc<AuthenticationBloc>();
   final _formKey = GlobalKey<FormState>();
 
@@ -24,7 +24,7 @@ class FirstAccessScreen extends StatelessWidget {
         padding: EdgeInsets.all(15),
         child: Builder(
           builder: (context) {
-            forgotBloc.outState.listen(
+            firstAccessBloc.outState.listen(
               (state) {
                 if (state == 'errorPass') {
                   Scaffold.of(context).showSnackBar(
@@ -46,6 +46,7 @@ class FirstAccessScreen extends StatelessWidget {
                     type: CoolAlertType.success,
                     text: "Cadastro realizado com sucesso!!! Agora basta acessar com seu CPF e senha",
                     title: 'Cadastro Portador',
+                    backgroundColor: Colors.white,
                     confirmBtnColor: Colors.indigo[900],
                     onConfirmBtnTap: () {
                       Navigator.pop(context);
@@ -57,7 +58,7 @@ class FirstAccessScreen extends StatelessWidget {
             );
 
             return StreamBuilder(
-              stream: forgotBloc.outState,
+              stream: firstAccessBloc.outState,
               builder: (context, snapshot) {
                 return Form(
                   key: _formKey,
@@ -175,7 +176,7 @@ class FirstAccessScreen extends StatelessWidget {
                         textColor: Colors.white,
                         onPressed: () {
                           if (_formKey.currentState.validate() && snapshot.data != 'loading') {
-                            forgotBloc.firstAccessValidate(
+                            firstAccessBloc.firstAccessValidate(
                               cpf: cpfController.text,
                               nome: nomeController.text,
                               nascimento: nascimentoController.text,

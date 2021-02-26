@@ -19,7 +19,7 @@ class AuthGuardBloc extends BlocBase {
         prefs.remove('access_token');
         prefs.remove('document');
         prefs.remove('cardProxy');
-        prefs.remove('currentCard');
+        prefs.remove('cardCurrent');
         prefs.remove('cardContract');
         print('Foi encontrado um token expirado; O token será apagado e você redirecionado para tela de Login');
         return false;

@@ -62,7 +62,7 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
     prefs.remove('access_token');
     prefs.remove('document');
     prefs.remove('cardProxy');
-    prefs.remove('currentCard');
+    prefs.remove('cardCurrent');
     prefs.remove('cardContract');
   }
 

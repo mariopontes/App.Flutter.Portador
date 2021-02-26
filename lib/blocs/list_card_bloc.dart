@@ -54,7 +54,7 @@ class CardBloc extends BlocBase {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('access_token') ?? null;
     _document = prefs.getString('document') ?? null;
-    String cardStr = prefs.getString('currentCard') ?? null;
+    String cardStr = prefs.getString('cardCurrent') ?? null;
 
     if (proxy != null) {
       if (cardStr == null) {
@@ -69,7 +69,7 @@ class CardBloc extends BlocBase {
           _cardController.add(card);
 
           final prefs = await SharedPreferences.getInstance();
-          prefs.setString('currentCard', jsonEncode(card));
+          prefs.setString('cardCurrent', jsonEncode(card));
 
           print('Current Card Salvo');
         } catch (e) {
@@ -88,7 +88,7 @@ class CardBloc extends BlocBase {
           _cardController.add(card);
 
           final prefs = await SharedPreferences.getInstance();
-          prefs.setString('currentCard', jsonEncode(card));
+          prefs.setString('cardCurrent', jsonEncode(card));
 
           print('Current Card Salvo');
         } catch (e) {

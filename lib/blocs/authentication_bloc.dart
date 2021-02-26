@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../environment/environment.dart';
 import '../validators/login_validators.dart';
 
 enum AuthState { IDLE, LOADING, SUCCESS, FAIL }
@@ -36,11 +38,11 @@ class AuthenticationBloc extends BlocBase with LoginValidators {
         'scope': 'openid profile vcn vcn_portador',
       };
 
-      Response response = await Dio().post('https://qa-km.eprepay.com.br/oauth2/token',
+      Response response = await Dio().post('$urlLogin/oauth2/token',
           data: data,
           options: Options(
             contentType: 'application/x-www-form-urlencoded',
-            headers: {"Authorization": 'Basic VEdienM1VnZFSGltTGViUmd0V2RJUXBZOWxBYToyWFRFSDYzNXVXOXJEc3o5MmdKcjFDV1pDc0Fh'},
+            headers: {'Authorization': 'Basic ${base64.encode(utf8.encode(scope))}'},
           ));
 
       _setAccessToken(response.data['access_token']);

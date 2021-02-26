@@ -3,8 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:rxdart/rxdart.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class FirstAccessBloc extends BlocBase {
   final _stateController = BehaviorSubject();
@@ -33,7 +32,7 @@ class FirstAccessBloc extends BlocBase {
 
     try {
       Response response = await Dio().post(
-        '$BASEURL/vcn/v1.0.0/portador/validar',
+        '$urlBase/vcn/v1.0.0/portador/validar',
         data: body,
       );
 

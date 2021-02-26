@@ -2,8 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class ForgotPassBloc extends BlocBase {
   String messageError;
@@ -18,7 +17,7 @@ class ForgotPassBloc extends BlocBase {
     };
 
     try {
-      Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/resetsenhaenviar', data: body);
+      Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/resetsenhaenviar', data: body);
 
       _stateController.add('success');
       return response.data;

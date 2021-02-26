@@ -5,8 +5,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class CardBloc extends BlocBase {
   String _token;
@@ -31,7 +30,7 @@ class CardBloc extends BlocBase {
     _document = prefs.getString('document') ?? null;
 
     try {
-      Response response = await Dio().get('$BASEURL/vcn/v1.0.0/portador/listarcartoes/$_document',
+      Response response = await Dio().get('$urlBase/vcn/v1.0.0/portador/listarcartoes/$_document',
           options: Options(
             contentType: 'application/json',
             headers: {"Authorization": 'Bearer $_token'},
@@ -60,7 +59,7 @@ class CardBloc extends BlocBase {
     if (proxy != null) {
       if (cardStr == null) {
         try {
-          Response response = await Dio().get('$BASEURL/vcn/v1.0.0/portador/detalhes/$_document/$proxy',
+          Response response = await Dio().get('$urlBase/vcn/v1.0.0/portador/detalhes/$_document/$proxy',
               options: Options(
                 contentType: 'application/json',
                 headers: {"Authorization": 'Bearer $_token'},
@@ -79,7 +78,7 @@ class CardBloc extends BlocBase {
         }
       } else if (jsonDecode(cardStr)['cardSerialNumber'] != proxy) {
         try {
-          Response response = await Dio().get('$BASEURL/vcn/v1.0.0/portador/detalhes/$_document/$proxy',
+          Response response = await Dio().get('$urlBase/vcn/v1.0.0/portador/detalhes/$_document/$proxy',
               options: Options(
                 contentType: 'application/json',
                 headers: {"Authorization": 'Bearer $_token'},

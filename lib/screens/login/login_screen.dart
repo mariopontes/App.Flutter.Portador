@@ -1,7 +1,7 @@
-import 'package:ESPP_Rewards_App_Portador/blocs/authentication_bloc.dart';
-import 'package:ESPP_Rewards_App_Portador/screens/home/home_screen.dart';
-
 import 'package:flutter/material.dart';
+
+import '../../blocs/authentication_bloc.dart';
+import '../../screens/home/home_screen.dart';
 import './input_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,18 +20,20 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    authBloc.outState.listen((state) {
-      if (state == AuthState.SUCCESS) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
-      } else if (state == AuthState.FAIL) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(
-            "Login e/ou Senha inválidos.",
-          ),
-          duration: Duration(seconds: 4),
-        ));
-      }
-    });
+    authBloc.outState.listen(
+      (state) {
+        if (state == AuthState.SUCCESS) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+        } else if (state == AuthState.FAIL) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+              "Login e/ou Senha inválidos.",
+            ),
+            duration: Duration(seconds: 4),
+          ));
+        }
+      },
+    );
   }
 
   @override

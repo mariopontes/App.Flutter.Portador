@@ -4,8 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class CardExtractBloc extends BlocBase {
   DateFormat maskDate = new DateFormat('yyyy/MM/dd');
@@ -50,7 +49,7 @@ class CardExtractBloc extends BlocBase {
       }
 
       try {
-        Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/cartao/extrato/$_document',
+        Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/cartao/extrato/$_document',
             data: body,
             options: Options(
               contentType: 'application/json',

@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class DataUserBloc extends BlocBase with DataUserValidators {
   DateFormat maskDate = new DateFormat('yyyy/MM/dd');
@@ -21,7 +20,7 @@ class DataUserBloc extends BlocBase with DataUserValidators {
     await this.getParams();
 
     try {
-      Response response = await Dio().get('$BASEURL/vcn/v1.0.0/portador/detalhes/$_document',
+      Response response = await Dio().get('$urlBase/vcn/v1.0.0/portador/detalhes/$_document',
           options: Options(
             contentType: 'application/json',
             headers: {"Authorization": 'Bearer $_token'},
@@ -47,7 +46,7 @@ class DataUserBloc extends BlocBase with DataUserValidators {
     };
 
     try {
-      Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/atualizar',
+      Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/atualizar',
           data: body,
           options: Options(
             contentType: 'application/json',
@@ -73,7 +72,7 @@ class DataUserBloc extends BlocBase with DataUserValidators {
       };
 
       try {
-        Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/alterarsenha',
+        Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/alterarsenha',
             data: body,
             options: Options(
               contentType: 'application/json',

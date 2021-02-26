@@ -2,8 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const BASEURL = 'https://api-qa.eprepay.com.br';
+import '../environment/environment.dart';
 
 class CardActionsBloc extends BlocBase {
   String _token;
@@ -27,7 +26,7 @@ class CardActionsBloc extends BlocBase {
     };
 
     try {
-      Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/cartao/bloquear',
+      Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/cartao/bloquear',
           data: body,
           options: Options(
             contentType: 'application/json',
@@ -53,7 +52,7 @@ class CardActionsBloc extends BlocBase {
     };
 
     try {
-      Response response = await Dio().post('$BASEURL/vcn/v1.0.0/portador/cartao/ativar',
+      Response response = await Dio().post('$urlBase/vcn/v1.0.0/portador/cartao/ativar',
           data: body,
           options: Options(
             contentType: 'application/json',

@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           stream: authBloc.outSubmitValid,
                           builder: (context, snapshot) {
                             return RaisedButton(
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: EdgeInsets.symmetric(vertical: 10),
                               color: Colors.blue[300],
                               child: Text(
                                 'Login',
@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Divider(),
                         RaisedButton(
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          padding: EdgeInsets.symmetric(vertical: 10),
                           color: Colors.indigo[900],
                           child: Text(
                             'Primeiro Acesso',

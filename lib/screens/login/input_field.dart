@@ -34,15 +34,20 @@ class InputField extends StatelessWidget {
           onChanged: onChanged,
           inputFormatters: isPassword ? [new LengthLimitingTextInputFormatter(4)] : [new LengthLimitingTextInputFormatter(14), maskCpf],
           decoration: InputDecoration(
-            errorText: snapshot.hasError ? snapshot.error : null,
+            contentPadding: EdgeInsets.symmetric(horizontal: 8),
             errorStyle: TextStyle(
-              fontSize: 15,
+              fontSize: 14,
               color: Colors.redAccent,
             ),
             labelText: label,
             labelStyle: TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.white,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white70,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
